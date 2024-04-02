@@ -7,6 +7,13 @@ Este código se comparte con fines educativos y para promover mejores prácticas
 # NyxWhisperer
 NyxWhisperer intenta mostrar al usuario que la usa una amplia superficie de ataque frente a entornos Active Directory de gran alcance. 
 
+## Herramientas necesarias
+-Masscan
+-Crackmapexec
+-metasploit
+-Kerbrute
+-Eyewitness
+
 Para ello se disponen de 2 herramientas, 'ScanAD.py' es la herramienta a usar de forma inicial. Esta creara una estructura de trabajo por carpetas y realizará un reconocimiento sobre todos los rangos o IP's incluidas.
 
 ![imagen](https://github.com/v1chul/NyxWhisperer/assets/123640456/0dfe6c70-d816-4b7c-9d1d-c92e6abcb776)
