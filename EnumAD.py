@@ -68,7 +68,7 @@ def run_smb_module():
         print(f"Error al ejecutar el comando CrackMapExec para shares SMB nulas: {e}")
 
     # Tercer comando: Identificar hosts que soportan SMBv1
-    cmd = "crackmapexec smb masscan/smb | grep 'SMBv1:True'  | awk '{print $2}' > loot/SMBv1.txt"
+    cmd = "crackmapexec smb masscan/smb | grep 'SMBv1:True'  | awk '{print $2}' | tee loot/SMBv1.txt"
     try:
         result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         smb_v1_output = result.stdout
@@ -78,7 +78,7 @@ def run_smb_module():
         print(f"Error al ejecutar CrackMapExec para identificar SMBv1: {e}")
 
     # Cuarto comando: Usar Metasploit para comprobar la vulnerabilidad MS17-010 en hosts que soportan SMBv1
-    cmd = "msfconsole -q -x 'use auxiliary/scanner/smb/smb_ms17_010; set rhosts file:./loot/SMBv1.txt; run; exit' |tee loot/EternalBlue.txt"
+    cmd = "msfconsole -q -x 'use auxiliary/scanner/smb/smb_ms17_010; set rhosts file:loot/SMBv1.txt; run; exit' |tee loot/EternalBlue.txt"
     try:
         result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         eternalblue_output = result.stdout
@@ -194,7 +194,7 @@ def run_ldap_module():
         print(cyan + clean_output + reset)
 
         # Luego, ejecutamos el comando para LDAP sin SSL
-        cmd_ldap = "msfconsole -q -x 'use auxiliary/gather/ldap_hashdump; set rhosts file:./masscan/ldap_ssl; set rport 389; set ssl false; run; exit'"
+        cmd_ldap = "msfconsole -q -x 'use auxiliary/gather/ldap_hashdump; set rhosts file:./masscan/ldap; set rport 389; set ssl false; run; exit'"
         result = subprocess.run(cmd_ldap, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         output = result.stdout
 
@@ -328,4 +328,13 @@ def run_module(choice):
         run_ldap_module()
     
 if __name__ == "__main__":
+    print(purple + """
+ _   _           __        ___     _                              
+| \ | |_   ___  _\ \      / / |__ (_)___ _ __   ___ _ __ ___ _ __ 
+|  \| | | | \ \/ /\ \ /\ / /| '_ \| / __| '_ \ / _ \ '__/ _ \ '__|
+| |\  | |_| |>  <  \ V  V / | | | | \__ \ |_) |  __/ | |  __/ |   
+|_| \_|\__, /_/\_\  \_/\_/  |_| |_|_|___/ .__/ \___|_|  \___|_|   
+       |___/                            |_|                       
+                                                                """ + reset)
+    print(green + """                                                               by V1chul""" + reset)
     main()
