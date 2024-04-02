@@ -5,7 +5,7 @@ Se requiere permiso previo por escrito del propietario de la red o sistemas ante
 Este código se comparte con fines educativos y para promover mejores prácticas de seguridad dentro de la comunidad de ciberseguridad.
 
 # NyxWhisperer
-Es un proyecto que intenta mostrar al usuario que la usa una amplia superficie de ataque frente a entornos Active Directory de gran alcance. 
+NyxWhisperer intenta mostrar al usuario que la usa una amplia superficie de ataque frente a entornos Active Directory de gran alcance. 
 
 Para ello se disponen de 2 herramientas, 'ScanAD.py' es la herramienta a usar de forma inicial. Esta creara una estructura de trabajo por carpetas y realizará un reconocimiento sobre todos los rangos o IP's incluidas.
 
